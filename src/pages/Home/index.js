@@ -1,12 +1,61 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Header from '../../components/Header';
 import Balance from '../../components/Balance';
+import Movements from '../../components/Movements';
+
+
+const list = [
+  {
+    id: 1,
+    label: 'Conta luz',
+    value: '250,00',
+    date: '28/01/2024',
+    type:0// despesas
+  },
+  {
+    id: 2,
+    label: 'Internet',
+    value: '170,00',
+    date: '30/12/2023',
+    type:0// despesas
+  },
+  {
+    id: 3,
+    label: 'Pix recebido',
+    value: '573,90',
+    date: '10/01/2024',
+    type:1// receita
+  },
+  {
+    id: 4,
+    label: 'Condominio',
+    value: '250,00',
+    date: '10/01/2024',
+    type:0// despesas
+  },
+  {
+    id: 5,
+    label: 'Salario',
+    value: '5.000,00',
+    date: '05/01/2024',
+    type:1// receita
+  },
+]
 
 export default function Home() {
  return (
    <View>
     <Header name='John Neves'/>
-    <Balance/>
+    <Balance saldo='15.070,75' gastos='-2.340,68'/>
+
+    <Text style={styles.title}>Ultimas movimentações</Text>
+    <FlatList 
+      style={styles.list}
+      data={list}
+      keyExtractor={(item) => String(item.id)}
+      showsVerticalScrollIndicator={false}
+      renderItem={({item}) => <Movements data={item}/>}
+    />
    </View>
   );
 }
@@ -14,6 +63,16 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         backgroundColor:'#FAFAFA'
-
     },
+    title: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      margin: 14
+
+    }, 
+    list:{
+      marginStart: 14,
+      marginE: 14,
+
+    }
 })
