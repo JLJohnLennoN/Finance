@@ -1,21 +1,48 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { MotiView, AnimatePresence, MotiText } from 'moti'
+
+import { Feather } from '@expo/vector-icons'
 
 export default function Movements({data}) {
   const [showValue, setShowValue] = useState(false);
+  const [showButtonEye, setShowButtonEye] = useState('eye-off');
  return (
-   <TouchableOpacity style={styles.container} onPress={() => setShowValue(!showValue)}>
-    <Text style={styles.date}>{data.date} </Text>
+   <TouchableOpacity style={styles.container} onPress={() => setShowValue(!showValue) }>
+    <View style={styles.hide}>
+      <Text style={styles.date}>{data.date} </Text>
+    </View>    
+
 
     <View style={styles.content}>
       <Text style={styles.label}>{data.label} </Text>
 
         { showValue ? (
-                <Text 
+          <AnimatePresence exitBeforeEnter>
+                <MotiText 
                 style={data.type === 1 ? styles.value : styles.expenses}
-                >{data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`} </Text>
+                from={{
+                  translateX: 100,
+                }}
+                animate={{
+                  translateX: 0
+                }}
+                transition={{
+                  type:'timing',
+                  duration: 200,
+                }}
+                >
+                  {data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`} </MotiText>
+                </AnimatePresence>
         ) : (
-          <View style={styles.skeleton}></View>
+          <AnimatePresence exitBeforeEnter>
+            <MotiView 
+            style={styles.skeleton}
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ type:'timing'}}
+            ></MotiView>
+          </AnimatePresence>
         )
         }
 
@@ -31,6 +58,12 @@ const styles = StyleSheet.create({
       marginBottom: 24,
       borderBottomWidth: 0.5,
       borderBottomColor: '#DADADA',
+    },
+    hide:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      alignItems: 'center',
+      marginEnd: 14,
     },
     content:{
       flexDirection: 'row',
@@ -50,11 +83,13 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#2ECC71',
       fontWeight:'bold',
+      marginEnd: 10,
     },
     expenses:{
       fontSize: 16,
       color:'#E74C3C',
       fontWeight:'bold',
+      marginEnd: 10,
     },
     skeleton:{
       marginTop: 6,
