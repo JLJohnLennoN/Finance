@@ -19,8 +19,30 @@ npx expo install react-native-screens react-native-safe-area-context
 ```
 **React native Animatable**
 ```
-expo install react-native-animatable
+npx expo install react-native-animatable
 ```
+**Moti**
+```
+npx expo install moti
+```
+**React Native Reanimated**
+```
+npx expo install react-native-reanimated
+```
+### 🔨 Configuração do babel
+Adicione ```react-native-reanimated/pluginplugin``` ao seu ```babel.config.js.```
+```
+  module.exports = {
+    presets: [
+      ... // don't add it here :)
+    ],
+    plugins: [
+      ...
+      'react-native-reanimated/plugin',
+    ],
+  };
+```
+
 ## 📦 Tecnologias usadas:
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
