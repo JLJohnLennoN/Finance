@@ -43,6 +43,7 @@ const list = [
 ]
 
 export default function Home() {
+
  return (
    <View>
     <Header name='John Neves'/>

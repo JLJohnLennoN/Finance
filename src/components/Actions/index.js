@@ -2,10 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'
 
+import * as Notification from 'expo-notifications'; 
+
 export default function Actions() {
+    const handleNotification = async() =>{
+        Notification.scheduleNotificationAsync({
+          content: {
+            title: 'John',
+            body: 'Notificação',
+          },
+          trigger:{
+            seconds: 1,
+          }
+        });
+    
+      }
  return (
    <ScrollView style={styles.container} horizontal={true} showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={styles.actionButton}>
+        <TouchableOpacity style={styles.actionButton} onPress={handleNotification}>
             <View style={styles.areaButton}>
                 <AntDesign name='addfolder' size={26} color='#000'/>
             </View>
