@@ -29,6 +29,10 @@ npx expo install moti
 ```
 npx expo install react-native-reanimated
 ```
+**Expo Notifications**
+```
+npx expo install expo-notifications
+```
 ### 🔨 Configuração do babel
 Adicione ```react-native-reanimated/pluginplugin``` ao seu ```babel.config.js.```
 ```
