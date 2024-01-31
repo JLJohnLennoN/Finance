@@ -41,6 +41,10 @@ export default function Header({name}) {
             >
                 {name}
             </MotiText>
+            <TouchableOpacity activeOpacity={0.7} style={{marginRight: -150}}>
+            <Feather name='eye-off' size={27} color='#FFF' />
+            </TouchableOpacity>
+            
             <TouchableOpacity activeOpacity={0.7} style={styles.buttonUser}>
                 <Feather name='user' size={27} color='#FFF'/>
 
