@@ -20,8 +20,6 @@ export default function Balance({saldo, gastos}) {
         delay: 200,
         duration: 999,
     }}
-
-   
    >
 
     <View style={styles.item}>

@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { MotiView, AnimatePresence, MotiText } from 'moti'
 
 import { Feather } from '@expo/vector-icons'
 
+import BottomSheetModal from './../BottomSheetModal'
+
+
 export default function Movements({data}) {
+
+  const [visibleModal, setVisibleModal] = useState(false)
   const [showValue, setShowValue] = useState(false);
   const [showButtonEye, setShowButtonEye] = useState('eye-off');
+
+ 
  return (
-   <TouchableOpacity style={styles.container} onPress={() => setShowValue(!showValue) }>
+   <TouchableOpacity style={styles.container} onPress={()=> setVisibleModal(true)}>
     <View style={styles.hide}>
       <Text style={styles.date}>{data.date} </Text>
     </View>    
+
+    <Modal
+    
+      visible={visibleModal}
+      transparent={true}
+      onRequestClose={()=> setVisibleModal(false)}
+    >
+      <BottomSheetModal handleClose={() => setVisibleModal(false)}/>
+
+    </Modal>
 
 
     <View style={styles.content}>

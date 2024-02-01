@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons'
 import { MotiView, MotiText } from 'moti'
@@ -6,6 +6,7 @@ import { MotiView, MotiText } from 'moti'
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 22 : 64;
 
 export default function Header({name}) {
+    const [hideValue, setHideValue] = useState(true)
  return (
    <View style={styles.container}>
         <MotiView style={styles.content}
@@ -37,7 +38,6 @@ export default function Header({name}) {
                 duration: 500,
                 delay: 200
             }}
-            
             >
                 {name}
             </MotiText>
