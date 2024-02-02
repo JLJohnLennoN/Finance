@@ -19,16 +19,17 @@ export default function Movements({data}) {
     <View style={styles.hide}>
       <Text style={styles.date}>{data.date} </Text>
     </View>    
-
+    
     <Modal
     
       visible={visibleModal}
       transparent={true}
       onRequestClose={()=> setVisibleModal(false)}
     >
-      <BottomSheetModal handleClose={() => setVisibleModal(false)}/>
+      <BottomSheetModal  detail={data} handleClose={() => setVisibleModal(false)}/>
 
     </Modal>
+    
 
 
     <View style={styles.content}>
