@@ -16,7 +16,7 @@ export default function BottomSheetModal({handleClose, detail}) {
                         style={styles.actionButton}
                         onPress={handleClose}
                     >
-                        <Feather name='minimize-2' size={27} color='#48D1CC'/>
+                        <Feather name='minimize-2' size={15} color='#48D1CC'/>
                     </TouchableOpacity>
                         <View style={styles.icon}>
                             <Ionicons name='cash' size={75} style={detail.type === 1 ? styles.value : styles.expenses}/>
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     },
     actionButton:{
         zIndex: 99,
-        width: 44,
-        height: 44,
+        width: 30,
+        height: 30,
         backgroundColor: '#EEE9E9',
         borderRadius: 44/2,
         padding:8,

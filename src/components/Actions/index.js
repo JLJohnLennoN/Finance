@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { AntDesign } from '@expo/vector-icons'
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { Feather } from '@expo/vector-icons'
 
 import * as Notification from 'expo-notifications'; 
 
-export default function Actions() {
+export default function Actions({dataContact}) {
     const handleNotification = async() =>{
         Notification.scheduleNotificationAsync({
           content: {
@@ -18,51 +18,29 @@ export default function Actions() {
     
       }
  return (
-   <ScrollView style={styles.container} horizontal={true} showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={styles.actionButton} onPress={handleNotification}>
-            <View style={styles.areaButton}>
-                <AntDesign name='addfolder' size={26} color='#000'/>
+        
+    <FlatList  
+      data={dataContact}
+      keyExtractor={(item) => String(item)}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      renderItem={({item}) =>  
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.content}>
+            <View style={styles.contentIcon}>
+                <Feather name='user' size={27} color='#FFF'/>
             </View>
-            <Text style={styles.labelButton}>Entradas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-            <View style={styles.areaButton}>
-                <AntDesign name='tagso' size={26} color='#000'/>
+            
+            <View style={styles.contentLabel}>
+                <Text style={styles.labelName}>{item.Name}</Text>
+                <Text style={styles.labelValue}>R$ {item.value}</Text>
             </View>
-            <Text style={styles.labelButton}>Compras</Text>
+            
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-            <View style={styles.areaButton}>
-                <AntDesign name='creditcard' size={26} color='#000'/>
-            </View>
-            <Text style={styles.labelButton}>Carteira</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-            <View style={styles.areaButton}>
-                <AntDesign name='barcode' size={26} color='#000'/>
-            </View>
-            <Text style={styles.labelButton}>Boletos</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-            <View style={styles.areaButton}>
-                <AntDesign name='swap' size={26} color='#000'/>
-            </View>
-            <Text style={styles.labelButton}>Transferir</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-            <View style={styles.areaButton}>
-                <AntDesign name='setting' size={26} color='#000'/>
-            </View>
-            <Text style={styles.labelButton}>Conta</Text>
-        </TouchableOpacity>
-
-
-   </ScrollView>
+        
+      </View>}
+    />
+   
   );
 }
 const styles = StyleSheet.create({
@@ -71,23 +49,41 @@ const styles = StyleSheet.create({
         marginBottom: 14,
         marginTop: 14,
         paddingEnd: 14,
-        paddingStart: 14
+        paddingStart: 14,
     },
-    actionButton:{
-        alignItems: 'center',
-        marginRight: 32,
-    },
-    areaButton:{
-        backgroundColor: '#ECF0F1',
-        height: 60,
-        width: 60,
+    content:{
+        flexDirection:'row',
+        backgroundColor:'#DADADA',
+        borderColor:'#FFF',
+        marginRight: 14,
+        width: 150,
+        height: 50,
         borderRadius: 30,
-        justifyContent: 'center',
         alignItems: 'center',
+        padding: 3,
+        borderWidth: 2,
     },
-    labelButton:{
-        marginTop: 4,
-        textAlign: 'center',
-        fontWeight:'bold'
+    contentIcon:{
+        backgroundColor:'#48D1CC',
+        width: 40,
+        height: 40,
+        borderRadius: 30,
+        alignItems:'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+        borderColor:'#FFF',
     },
+    labelName:{
+        marginStart: 5,
+        color: '#FFF',
+        fontSize: 16,
+        fontWeight: 'bold',
+
+    },
+    labelValue:{
+        marginStart: 5,
+        color: '#FFF',
+        fontSize: 10,
+    }
+
 })

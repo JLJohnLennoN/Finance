@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { MotiView, AnimatePresence, MotiText } from 'moti'
 
-import { Feather } from '@expo/vector-icons'
-
 import BottomSheetModal from './../BottomSheetModal'
 
 
