@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
-import { MotiView } from 'moti'
+import { View, Text, StyleSheet} from 'react-native';
+import { MotiView, AnimatePresence } from 'moti'
 
 
-export default function Balance({saldo, gastos}) {
+export default function Balance({saldo, gastos, hideValue}) {
  return (
    <MotiView 
     style={styles.container}
@@ -21,23 +21,39 @@ export default function Balance({saldo, gastos}) {
         duration: 999,
     }}
    >
+    
+    { hideValue  ? (
+          <AnimatePresence exitBeforeEnter>
+          <MotiView 
+            style={styles.skeleton}
+            from={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ type:'timing'}}
+          >
+            
+          </MotiView>
+        </AnimatePresence>
 
-    <View style={styles.item}>
-        <Text style={styles.itemTitle}>Saldo</Text>
-        <View style={styles.content}>
-            <Text style={styles.currencySymbol}>R$</Text>
-            <Text style={styles.balance}>{saldo}</Text>
-        </View>
-    </View>
+        ) : (
+            <AnimatePresence exitBeforeEnter> 
+                <View style={styles.item}>
+                    <Text style={styles.itemTitle}>Saldo</Text>
+                    <View style={styles.content}>
+                        <Text style={styles.currencySymbol}>R$</Text>
+                        <Text style={styles.balance}>{saldo}</Text>
+                    </View>
+                </View>
 
-    <View style={styles.item}>
-        <Text style={styles.itemTitle}>Gastos</Text>
-        <View style={styles.content}>
-            <Text style={styles.currencySymbol}>R$</Text>
-            <Text style={styles.expenses}>{gastos}</Text>
-        </View>
-    </View>
-
+                <View style={styles.item}>
+                    <Text style={styles.itemTitle}>Gastos</Text>
+                    <View style={styles.content}>
+                        <Text style={styles.currencySymbol}>R$</Text>
+                        <Text style={styles.expenses}>{gastos}</Text>
+                    </View>
+                </View>
+            </AnimatePresence>
+        )
+        }
    </MotiView>
   );
 }
@@ -76,7 +92,14 @@ const styles = StyleSheet.create({
         fontSize:22,
         color:'#e74c3c',
     },
-
+    skeleton:{
+        marginTop: 6,
+        width: 80,
+        height: 10,
+        backgroundColor:'#DADADA',
+        borderRadius: 10,
+        marginEnd: 10,
+      }
   
     
 })

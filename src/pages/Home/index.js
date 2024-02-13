@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { Feather } from '@expo/vector-icons'
 import Header from '../../components/Header';
 import Balance from '../../components/Balance';
 import Movements from '../../components/Movements';
@@ -64,11 +64,17 @@ const Contactlist = [
 ]
 
 export default function Home() {
+  
+  const [hideValue, setHideValue] = useState(true);
+
+  const toggleVisibility = () => {
+    setHideValue(!hideValue);
+  };
 
  return (
    <View>
-    <Header name='John Neves'/>
-    <Balance saldo='15.070,75' gastos='-2.340,68'/>
+    <Header name='John Neves' toggleVisibility={toggleVisibility} hideValue={hideValue}/>
+    <Balance saldo='15.070,75' gastos='-2.340,68' hideValue={hideValue}/>
     
     <Actions dataContact={Contactlist}/>
     <Text style={styles.title}>Ultimas movimentações</Text>
@@ -78,7 +84,7 @@ export default function Home() {
       data={list}
       keyExtractor={(item) => String(item.id)}
       showsVerticalScrollIndicator={false}
-      renderItem={({item}) => <Movements data={item}/>}
+      renderItem={({item}) => <Movements data={item} hideValue={hideValue}/>}
     />
    </View>
   );
@@ -92,7 +98,6 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 'bold',
       margin: 14
-
     }, 
     list:{
       marginStart: 14,

@@ -1,10 +1,48 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 
+import firebase from 'firebase/app';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {initializeApp} from 'firebase/app';
+
+import { firebaseConfig } from '../../../firebaseConfig'
+
 export default function SignIn() {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const handleCreateAccount = () => {
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      console.log('Account created')
+      const user = userCredential.user;
+      console.log(user)
+    }).catch(error =>{
+      console.log(error)
+      Alert.alert(error.message)
+    })
+
+  }
+  const handleSignIn = () =>{
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      console.log('Signed In')
+      const user = userCredential.user;
+      console.log(user)
+      navigation.navigate('Home')
+    }).catch(error =>{
+      console.log(error)
+      Alert.alert(error.message)
+    })
+
+  }
+
  return (
 <View style={styles.container}>
   <Animatable.View animation='fadeInLeft' delay={500} style={styles.containerHeader} >
@@ -14,17 +52,26 @@ export default function SignIn() {
   <Animatable.View animation='fadeInUp' style={styles.containerForm}>
 
     <Text style={styles.title}>Email</Text>
-    <TextInput style={styles.input} placeholder='Digite seu email'/>
+    <TextInput 
+      style={styles.input} 
+      placeholder='Digite seu email' 
+      onChangeText={setEmail}
+      value={email}/>
 
     <Text style={styles.title}>Senha</Text>
-    <TextInput style={styles.input}placeholder='Digite sua senha'/>
+    <TextInput 
+      style={styles.input}
+      placeholder='Digite sua senha'
+      onChangeText={setPassword}
+      value={password}
+      secureTextEntr/>
 
     <TouchableOpacity style={styles.button}
-    onPress={()=> navigation.navigate('Home')}>
+    onPress={handleSignIn}>
       <Text style={styles.buttonText}>Acessar</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity style={styles.buttonRegister}>
+    <TouchableOpacity style={styles.buttonRegister} onPress={handleCreateAccount}>
       <Text style={styles.registerText}>Não possui uma conta? Cadastre-se</Text>
     </TouchableOpacity>
 

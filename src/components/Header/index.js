@@ -5,8 +5,7 @@ import { MotiView, MotiText } from 'moti'
 
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 22 : 64;
 
-export default function Header({name}) {
-    const [hideValue, setHideValue] = useState(true)
+export default function Header({name, toggleVisibility, hideValue}) {
  return (
    <View style={styles.container}>
         <MotiView style={styles.content}
@@ -41,15 +40,16 @@ export default function Header({name}) {
             >
                 {name}
             </MotiText>
-            <TouchableOpacity activeOpacity={0.7} style={{marginRight: -150}}>
-            <Feather name='eye-off' size={27} color='#FFF' />
+            <TouchableOpacity
+                activeOpacity={0.7} 
+                style={{marginRight: -150}}
+                onPress={toggleVisibility}>
+                <Feather name={hideValue ? 'eye' : 'eye-off'} size={27} color='#FFF' />
             </TouchableOpacity>
             
             <TouchableOpacity activeOpacity={0.7} style={styles.buttonUser}>
                 <Feather name='user' size={27} color='#FFF'/>
-
             </TouchableOpacity>
-
         </MotiView>
    </View>
   );

@@ -5,12 +5,9 @@ import { MotiView, AnimatePresence, MotiText } from 'moti'
 import BottomSheetModal from './../BottomSheetModal'
 
 
-export default function Movements({data}) {
+export default function Movements({data, hideValue}) {
 
   const [visibleModal, setVisibleModal] = useState(false)
-  const [showValue, setShowValue] = useState(false);
-  const [showButtonEye, setShowButtonEye] = useState('eye-off');
-
  
  return (
    <TouchableOpacity style={styles.container} onPress={()=> setVisibleModal(true)}>
@@ -33,31 +30,32 @@ export default function Movements({data}) {
     <View style={styles.content}>
       <Text style={styles.label}>{data.label} </Text>
 
-        { showValue ? (
+        { hideValue  ? (
           <AnimatePresence exitBeforeEnter>
-                <MotiText 
-                style={data.type === 1 ? styles.value : styles.expenses}
-                from={{
-                  translateX: 100,
-                }}
-                animate={{
-                  translateX: 0
-                }}
-                transition={{
-                  type:'timing',
-                  duration: 200,
-                }}
-                >
-                  {data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`} </MotiText>
-                </AnimatePresence>
+          <MotiView 
+          style={styles.skeleton}
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ type:'timing'}}
+          ></MotiView>
+        </AnimatePresence>
+
         ) : (
           <AnimatePresence exitBeforeEnter>
-            <MotiView 
-            style={styles.skeleton}
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ type:'timing'}}
-            ></MotiView>
+          <MotiText 
+          style={data.type === 1 ? styles.value : styles.expenses}
+          from={{
+            translateX: 100,
+          }}
+          animate={{
+            translateX: 0
+          }}
+          transition={{
+            type:'timing',
+            duration: 200,
+          }}
+          >
+            {data.type === 1 ? `R$ ${data.value}` : `R$ -${data.value}`} </MotiText>
           </AnimatePresence>
         )
         }
