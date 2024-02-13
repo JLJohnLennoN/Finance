@@ -33,6 +33,10 @@ npx expo install react-native-reanimated
 ```
 npx expo install expo-notifications
 ```
+**Firebase Authentication**
+```
+yarn add firebase
+```
 ### 🔨 Configuração do babel
 Adicione ```react-native-reanimated/pluginplugin``` ao seu ```babel.config.js.```
 ```
